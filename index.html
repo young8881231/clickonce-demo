@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>網頁開啟程式測試</title>
+<style>
+  :root { --bg: #fff8f0; --ink: #3a2a1c; --muted: #6b5644; --line: #ecd9c6; --card: #ffffff;
+          --accent: #c2510f; --accent-ink: #fff; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font-family: "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif; }
+  main { max-width: 560px; margin: 64px auto; padding: 0 16px; }
+  h1 { font-size: 24px; margin: 0 0 8px; }
+  p { color: var(--muted); line-height: 1.7; margin: 0; }
+  .apps { display: grid; gap: 12px; margin: 24px 0; }
+  .app { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+         padding: 16px 20px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+  .app strong { display: block; font-size: 18px; }
+  .app span { color: var(--muted); font-size: 14px; }
+  a.btn { flex: none; padding: 10px 22px; border-radius: 10px; background: var(--accent);
+          color: var(--accent-ink); text-decoration: none; font-weight: 700; }
+  a.btn:hover { background: color-mix(in srgb, var(--accent) 85%, black); }
+  ol { color: var(--muted); line-height: 1.8; padding-left: 20px; margin: 8px 0 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>網頁開啟程式測試</h1>
+  <p>按「開啟」，程式會直接在這台電腦上執行。不用先安裝 .NET，也不用寫機碼。請用 Microsoft Edge 開這個網頁。</p>
+  <div class="apps">
+    <div class="app">
+      <div><strong>Hello World 測試程式</strong><span>第一次開啟約 73MB</span></div>
+      <a class="btn" href="hello/HelloNet8.application">開啟</a>
+    </div>
+  </div>
+  <p>第一次開啟會依序出現：</p>
+  <ol>
+    <li>Edge 問「是否開啟此檔案？」→ 按「開啟」</li>
+    <li>「應用程式執行 - 安全性警告」→ 按「執行」</li>
+  </ol>
+  <p style="margin-top:12px">之後再開只需要第 1 步，程式直接用已下載的檔案。</p>
+</main>
+</body>
+</html>
