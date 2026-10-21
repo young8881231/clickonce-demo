@@ -21,6 +21,14 @@
           color: var(--accent-ink); text-decoration: none; font-weight: 700; }
   a.btn:hover { background: color-mix(in srgb, var(--accent) 85%, black); }
   ol { color: var(--muted); line-height: 1.8; padding-left: 20px; margin: 8px 0 0; }
+  .arg-card { flex-wrap: wrap; }
+  .arg-card > div:first-child { flex: 1 1 220px; }
+  .arg-row { display: flex; align-items: center; gap: 8px; flex: none; }
+  .arg-row input { width: 120px; padding: 9px 12px; font: inherit; font-size: 16px; color: var(--ink);
+                   background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+  .arg-row input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .app .arg-error { display: block; margin-top: 6px; color: #b42318; font-weight: 700; }
+  .app .arg-error[hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -32,6 +40,17 @@
       <div><strong>Hello World 測試程式</strong><span>第一次開啟約 73MB</span></div>
       <a class="btn" href="hello/HelloNet8.application">開啟</a>
     </div>
+    <div class="app arg-card">
+      <div>
+        <strong>帶參數開啟</strong>
+        <span>輸入的值會當成命令列參數交給程式，程式畫面會顯示它收到的參數。第一次開啟約 73MB</span>
+        <span class="arg-error" id="argError" role="alert" hidden>只接受 1～20 位數字</span>
+      </div>
+      <div class="arg-row">
+        <input id="arg" type="text" inputmode="numeric" placeholder="例如 123" aria-label="參數" maxlength="20" autocomplete="off">
+        <a class="btn" id="argBtn" href="args/ArgLauncher.application">開啟</a>
+      </div>
+    </div>
   </div>
   <p>第一次開啟會依序出現：</p>
   <ol>
@@ -40,5 +59,28 @@
   </ol>
   <p style="margin-top:12px">之後再開只需要第 1 步，程式直接用已下載的檔案。</p>
 </main>
+<script>
+  // 按下「開啟」的那一刻才讀輸入框：合格就帶 ?arg=，空白就不帶，不合格就擋下並顯示紅字
+  (function () {
+    var input = document.getElementById("arg");
+    var btn = document.getElementById("argBtn");
+    var err = document.getElementById("argError");
+    var base = "args/ArgLauncher.application";
+    btn.addEventListener("click", function (e) {
+      var v = input.value.trim();
+      if (v === "") {
+        err.hidden = true;
+        btn.setAttribute("href", base);
+      } else if (/^[0-9]{1,20}$/.test(v)) {
+        err.hidden = true;
+        btn.setAttribute("href", base + "?arg=" + encodeURIComponent(v));
+      } else {
+        e.preventDefault();
+        err.hidden = false;
+      }
+    });
+    input.addEventListener("input", function () { err.hidden = true; });
+  })();
+</script>
 </body>
 </html>
